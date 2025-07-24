@@ -116,6 +116,7 @@ This project uses environment variables for API keys and configuration. Follow t
    ```
 
 3. **Add your actual API keys:**
+
    ```env
    OPEN_AI_API_KEY=your_actual_openai_api_key_here
    ```
@@ -128,7 +129,7 @@ This project uses environment variables for API keys and configuration. Follow t
 
 ### Environment File Structure
 
-```
+```text
 .env.local          # Local environment variables (not committed to git)
 example.env         # Example environment file (committed to git)
 ```
