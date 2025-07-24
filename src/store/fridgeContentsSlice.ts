@@ -26,7 +26,7 @@ const fridgeContentsSlice = createSlice({
       const itemExists = state.items.find(
         item => item.name.toLowerCase() === name.toLowerCase()
       );
-      
+
       if (!itemExists) {
         const newItem: FoodItem = {
           id: new Date().getTime().toString(), // Simple unique ID

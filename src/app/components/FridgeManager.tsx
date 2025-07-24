@@ -16,7 +16,7 @@ import { getExpirationStatus } from "../../utils/expirationUtils";
 export default function FridgeManager() {
   const dispatch = useAppDispatch();
   const fridgeItems = useAppSelector(state => state.fridgeContents.items);
-  
+
   // Enable expiration notifications
   useExpirationNotifications(fridgeItems);
 
@@ -25,11 +25,11 @@ export default function FridgeManager() {
 
   const handleAddItem = () => {
     const isValidInput = newItemName.trim() && expirationDate;
-    
+
     if (isValidInput) {
       dispatch(addItem({ name: newItemName.trim(), expirationDate }));
       toast.success(`Added ${newItemName.trim()} to fridge!`, {
-        icon: '✅',
+        icon: "✅",
         duration: 3000,
       });
       setNewItemName("");
@@ -49,7 +49,7 @@ export default function FridgeManager() {
     dispatch(chuckItem(item));
     dispatch(removeItem(item.id));
     toast.success(`Chucked ${item.name}!`, {
-      icon: '🗑️',
+      icon: "🗑️",
       duration: 3000,
     });
   };
@@ -99,30 +99,42 @@ export default function FridgeManager() {
               const expirationStatus = getExpirationStatus(item.expirationDate);
               const isExpired = expirationStatus.isExpired;
               const isExpiringSoon = expirationStatus.isExpiringSoon;
-              
+
               return (
                 <div
                   key={item.id}
                   className={`flex items-center justify-between p-3 rounded-md ${
                     isExpired
-                      ? 'bg-red-50 border-2 border-red-200'
+                      ? "bg-red-50 border-2 border-red-200"
                       : isExpiringSoon
-                      ? 'bg-yellow-50 border-2 border-yellow-200'
-                      : 'bg-gray-50'
+                        ? "bg-yellow-50 border-2 border-yellow-200"
+                        : "bg-gray-50"
                   }`}
                 >
                   <div className="flex-1">
-                    <span className={`font-medium ${
-                      isExpired ? 'text-red-700' : isExpiringSoon ? 'text-yellow-700' : ''
-                    }`}>
+                    <span
+                      className={`font-medium ${
+                        isExpired
+                          ? "text-red-700"
+                          : isExpiringSoon
+                            ? "text-yellow-700"
+                            : ""
+                      }`}
+                    >
                       {item.name}
                     </span>
-                    <p className={`text-sm ${
-                      isExpired ? 'text-red-600' : isExpiringSoon ? 'text-yellow-600' : 'text-gray-500'
-                    }`}>
+                    <p
+                      className={`text-sm ${
+                        isExpired
+                          ? "text-red-600"
+                          : isExpiringSoon
+                            ? "text-yellow-600"
+                            : "text-gray-500"
+                      }`}
+                    >
                       Expires: {item.expirationDate}
-                      {isExpired && ' (EXPIRED)'}
-                      {isExpiringSoon && !isExpired && ' (Expiring Soon)'}
+                      {isExpired && " (EXPIRED)"}
+                      {isExpiringSoon && !isExpired && " (Expiring Soon)"}
                     </p>
                   </div>
                   <div className="flex gap-1 ml-2">

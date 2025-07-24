@@ -1,5 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { persistStore, persistReducer, createMigrate } from "redux-persist";
+import {
+  persistStore,
+  persistReducer,
+  createMigrate,
+  PersistedState,
+} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "@reduxjs/toolkit";
 
@@ -8,18 +13,37 @@ import userDataReducer from "./userDataSlice";
 import wasteTrackerReducer from "./wasteTrackerSlice";
 
 const migrations = {
-  0: (state: any) => {
-    const hasFridgeContents = state.fridgeContents;
-    const hasItems = hasFridgeContents && Array.isArray(state.fridgeContents.items);
-    const hasOldFormat = hasItems && state.fridgeContents.items.length > 0 && typeof state.fridgeContents.items[0] === "string";
-    
-    if (hasOldFormat) {
+  0: (state: PersistedState): PersistedState => {
+    // Handle the case where state might be undefined
+    if (!state) {
+      return state;
+    }
+
+    // Use type assertion to work with the state
+    const stateWithFridge = state as typeof state & {
+      fridgeContents?: {
+        items?: unknown[];
+      };
+    };
+
+    // Check if we have old string-based items
+    const fridgeContents = stateWithFridge.fridgeContents;
+    if (
+      fridgeContents &&
+      Array.isArray(fridgeContents.items) &&
+      fridgeContents.items.length > 0 &&
+      typeof fridgeContents.items[0] === "string"
+    ) {
+      // Clear old format items
       return {
         ...state,
-        fridgeContents: { ...state.fridgeContents, items: [] },
-      };
+        fridgeContents: {
+          ...fridgeContents,
+          items: [],
+        },
+      } as PersistedState;
     }
-    
+
     return state;
   },
 };
