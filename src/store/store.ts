@@ -5,6 +5,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 
 import fridgeContentsReducer from "./fridgeContentsSlice";
 import userDataReducer from "./userDataSlice";
+import wasteTrackerReducer from "./wasteTrackerSlice";
 
 const migrations = {
   0: (state: any) => {
@@ -27,13 +28,14 @@ const persistConfig = {
   key: "root",
   version: 0,
   storage,
-  whitelist: ["fridgeContents", "userData"],
+  whitelist: ["fridgeContents", "userData", "wasteTracker"],
   migrate: createMigrate(migrations, { debug: false }),
 };
 
 const rootReducer = combineReducers({
   fridgeContents: fridgeContentsReducer,
   userData: userDataReducer,
+  wasteTracker: wasteTrackerReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
