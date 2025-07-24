@@ -30,6 +30,28 @@
 
     --light-hover-bg-gray-200: rgb(229 231 235);
     --light-ring-offset-white: rgb(255 255 255);
+
+    /* Dark mode colors */
+    --dark-bg-gray-900: rgb(17 24 39);
+    --dark-bg-gray-800: rgb(31 41 55);
+    --dark-bg-gray-700: rgb(55 65 81);
+    --dark-bg-blue-600: rgb(37 99 235);
+    --dark-bg-blue-900-20: rgba(30 58 138 / 0.2);
+
+    --dark-text-gray-100: rgb(243 244 246);
+    --dark-text-gray-200: rgb(229 231 235);
+    --dark-text-gray-300: rgb(209 213 219);
+    --dark-text-gray-400: rgb(156 163 175);
+    --dark-text-blue-200: rgb(191 219 254);
+    --dark-text-blue-300: rgb(147 197 253);
+    --dark-text-red-400: rgb(248 113 113);
+
+    --dark-border-gray-600: rgb(75 85 99);
+    --dark-border-gray-700: rgb(55 65 81);
+    --dark-border-blue-800: rgb(30 64 175);
+
+    --dark-hover-bg-gray-700: rgb(55 65 81);
+    --dark-ring-offset-gray-900: rgb(17 24 39);
 }
 
 /* Dark theme colors */
@@ -40,92 +62,235 @@
     --input: 0 0% 14.9%;
 }
 
-/* Manual dark mode overrides - Force light mode styles when NOT .dark */
-/* Using CSS custom properties for easier maintenance */
-
-/* Background colors */
+/* Enhanced CSS overrides - System-independent theme enforcement */
+/* Light mode: Force light styles when html has 'light' class OR when NOT .dark */
+html.light .dark\:bg-gray-900,
 html:not(.dark) .dark\:bg-gray-900 {
-    background-color: var(--light-bg-gray-100) !important;
-}
-
-html:not(.dark) .dark\:bg-gray-800 {
     background-color: var(--light-bg-white) !important;
 }
 
-html:not(.dark) .dark\:bg-gray-700 {
+html.light .dark\:bg-gray-800,
+html:not(.dark) .dark\:bg-gray-800 {
     background-color: var(--light-bg-gray-50) !important;
 }
 
+html.light .dark\:bg-gray-700,
+html:not(.dark) .dark\:bg-gray-700 {
+    background-color: var(--light-bg-gray-100) !important;
+}
+
+html.light .dark\:bg-blue-600,
 html:not(.dark) .dark\:bg-blue-600 {
     background-color: var(--light-bg-blue-500) !important;
 }
 
+html.light .dark\:bg-blue-900\/20,
 html:not(.dark) .dark\:bg-blue-900\/20 {
     background-color: var(--light-bg-blue-50) !important;
 }
 
-/* Text colors */
+/* Critical: Force expired item backgrounds in light mode */
+html.light .dark\:bg-red-900\/20,
+html:not(.dark) .dark\:bg-red-900\/20 {
+    background-color: rgb(254 226 226) !important;
+    /* red-100 equivalent */
+}
+
+html.light .dark\:bg-yellow-900\/20,
+html:not(.dark) .dark\:bg-yellow-900\/20 {
+    background-color: rgb(254 249 195) !important;
+    /* yellow-100 equivalent */
+}
+
+html.light .dark\:text-gray-100,
 html:not(.dark) .dark\:text-gray-100 {
     color: var(--light-text-gray-900) !important;
 }
 
+html.light .dark\:text-gray-200,
 html:not(.dark) .dark\:text-gray-200 {
     color: var(--light-text-gray-800) !important;
 }
 
+html.light .dark\:text-gray-300,
 html:not(.dark) .dark\:text-gray-300 {
     color: var(--light-text-gray-600) !important;
 }
 
+html.light .dark\:text-gray-400,
 html:not(.dark) .dark\:text-gray-400 {
     color: var(--light-text-gray-500) !important;
 }
 
+html.light .dark\:text-blue-200,
 html:not(.dark) .dark\:text-blue-200 {
     color: var(--light-text-blue-800) !important;
 }
 
+html.light .dark\:text-blue-300,
 html:not(.dark) .dark\:text-blue-300 {
     color: var(--light-text-blue-700) !important;
 }
 
+html.light .dark\:text-red-400,
 html:not(.dark) .dark\:text-red-400 {
     color: var(--light-text-red-500) !important;
 }
 
-/* Border colors */
+html.light .dark\:border-gray-600,
 html:not(.dark) .dark\:border-gray-600 {
     border-color: var(--light-border-gray-300) !important;
 }
 
+html.light .dark\:border-gray-700,
 html:not(.dark) .dark\:border-gray-700 {
     border-color: var(--light-border-gray-200) !important;
 }
 
+html.light .dark\:border-blue-800,
 html:not(.dark) .dark\:border-blue-800 {
     border-color: var(--light-border-blue-200) !important;
 }
 
-/* Hover states */
+/* Critical: Force expired item borders in light mode */
+html.light .dark\:border-red-800,
+html:not(.dark) .dark\:border-red-800 {
+    border-color: rgb(252 165 165) !important;
+    /* red-300 equivalent */
+}
+
+html.light .dark\:border-yellow-800,
+html:not(.dark) .dark\:border-yellow-800 {
+    border-color: rgb(253 224 71) !important;
+    /* yellow-300 equivalent */
+}
+
+html.light .dark\:hover\:bg-gray-700:hover,
 html:not(.dark) .dark\:hover\:bg-gray-700:hover {
     background-color: var(--light-hover-bg-gray-200) !important;
 }
 
+html.light .dark\:hover\:text-gray-100:hover,
 html:not(.dark) .dark\:hover\:text-gray-100:hover {
     color: var(--light-text-gray-900) !important;
 }
 
+html.light .dark\:hover\:text-gray-300:hover,
 html:not(.dark) .dark\:hover\:text-gray-300:hover {
     color: var(--light-text-gray-600) !important;
 }
 
+html.light .dark\:hover\:text-red-300:hover,
 html:not(.dark) .dark\:hover\:text-red-300:hover {
-    color: var(--light-text-red-700) !important;
+    color: var(--light-text-red-500) !important;
 }
 
-/* Focus states */
+html.light .dark\:focus\:ring-offset-gray-900:focus,
 html:not(.dark) .dark\:focus\:ring-offset-gray-900:focus {
     --tw-ring-offset-color: var(--light-ring-offset-white) !important;
+}
+
+/* Dark mode: Force dark styles when html has 'dark' class */
+html.dark .dark\:bg-gray-900 {
+    background-color: var(--dark-bg-gray-900) !important;
+}
+
+html.dark .dark\:bg-gray-800 {
+    background-color: var(--dark-bg-gray-800) !important;
+}
+
+html.dark .dark\:bg-gray-700 {
+    background-color: var(--dark-bg-gray-700) !important;
+}
+
+html.dark .dark\:bg-blue-600 {
+    background-color: var(--dark-bg-blue-600) !important;
+}
+
+html.dark .dark\:bg-blue-900\/20 {
+    background-color: var(--dark-bg-blue-900-20) !important;
+}
+
+/* Critical: Force expired item backgrounds in dark mode */
+html.dark .dark\:bg-red-900\/20 {
+    background-color: rgba(127 29 29 / 0.3) !important;
+    /* Enhanced red background */
+}
+
+html.dark .dark\:bg-yellow-900\/20 {
+    background-color: rgba(146 64 14 / 0.3) !important;
+    /* Enhanced yellow background */
+}
+
+html.dark .dark\:text-gray-100 {
+    color: var(--dark-text-gray-100) !important;
+}
+
+html.dark .dark\:text-gray-200 {
+    color: var(--dark-text-gray-200) !important;
+}
+
+html.dark .dark\:text-gray-300 {
+    color: var(--dark-text-gray-300) !important;
+}
+
+html.dark .dark\:text-gray-400 {
+    color: var(--dark-text-gray-400) !important;
+}
+
+html.dark .dark\:text-blue-200 {
+    color: var(--dark-text-blue-200) !important;
+}
+
+html.dark .dark\:text-blue-300 {
+    color: var(--dark-text-blue-300) !important;
+}
+
+html.dark .dark\:text-red-400 {
+    color: var(--dark-text-red-400) !important;
+}
+
+html.dark .dark\:border-gray-600 {
+    border-color: var(--dark-border-gray-600) !important;
+}
+
+html.dark .dark\:border-gray-700 {
+    border-color: var(--dark-border-gray-700) !important;
+}
+
+html.dark .dark\:border-blue-800 {
+    border-color: var(--dark-border-blue-800) !important;
+}
+
+/* Critical: Force expired item borders in dark mode */
+html.dark .dark\:border-red-800 {
+    border-color: rgb(153 27 27) !important;
+    /* Consistent red border */
+}
+
+html.dark .dark\:border-yellow-800 {
+    border-color: rgb(146 64 14) !important;
+    /* Consistent yellow border */
+}
+
+html.dark .dark\:hover\:bg-gray-700:hover {
+    background-color: var(--dark-hover-bg-gray-700) !important;
+}
+
+html.dark .dark\:hover\:text-gray-100:hover {
+    color: var(--dark-text-gray-100) !important;
+}
+
+html.dark .dark\:hover\:text-gray-300:hover {
+    color: var(--dark-text-gray-300) !important;
+}
+
+html.dark .dark\:hover\:text-red-300:hover {
+    color: var(--dark-text-red-400) !important;
+}
+
+html.dark .dark\:focus\:ring-offset-gray-900:focus {
+    --tw-ring-offset-color: var(--dark-ring-offset-gray-900) !important;
 }
 
 /* Optimized transitions - Only apply to theme-related properties and specific elements */
