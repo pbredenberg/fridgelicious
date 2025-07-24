@@ -64,13 +64,24 @@ A modern web application for managing your fridge contents and tracking your dai
    npm install
    ```
 
-3. **Start the development server**
+3. **Set up environment variables**
+
+   ```bash
+   # Copy the example environment file
+   cp example.env .env.local
+
+   # Edit the .env.local file and add your API keys
+   # For example:
+   # OPEN_AI_API_KEY=your_actual_openai_api_key_here
+   ```
+
+4. **Start the development server**
 
    ```bash
    npm run dev
    ```
 
-4. **Open your browser**
+5. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000) to see the application.
 
 ## Available Scripts
@@ -82,6 +93,52 @@ A modern web application for managing your fridge contents and tracking your dai
 - `npm run lint:fix` - Fix ESLint issues automatically
 - `npm run format` - Format code with Prettier
 - `npm run format:check` - Check if code is properly formatted
+
+## Environment Variables
+
+This project uses environment variables for API keys and configuration. Follow these steps to set up your environment:
+
+### Setting Up Environment Variables
+
+1. **Copy the example environment file:**
+
+   ```bash
+   cp example.env .env.local
+   ```
+
+2. **Edit `.env.local` and add your API keys:**
+
+   ```bash
+   # Open the file in your preferred editor
+   nano .env.local
+   # or
+   code .env.local
+   ```
+
+3. **Add your actual API keys:**
+   ```env
+   OPEN_AI_API_KEY=your_actual_openai_api_key_here
+   ```
+
+### Required API Keys
+
+- **OpenAI API Key**: Required for AI-powered features like recipe generation
+  - Get your API key from [OpenAI Platform](https://platform.openai.com/api-keys)
+  - Add it to your `.env.local` file
+
+### Environment File Structure
+
+```
+.env.local          # Local environment variables (not committed to git)
+example.env         # Example environment file (committed to git)
+```
+
+### Security Notes
+
+- Never commit your actual API keys to version control
+- The `.env.local` file is automatically ignored by git
+- Use different API keys for development and production
+- Rotate your API keys regularly for security
 
 ## Project Structure
 
