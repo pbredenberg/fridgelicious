@@ -1,15 +1,34 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { persistStore, persistReducer } from "redux-persist";
+import { persistStore, persistReducer, createMigrate } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "@reduxjs/toolkit";
 
 import fridgeContentsReducer from "./fridgeContentsSlice";
 import userDataReducer from "./userDataSlice";
 
+const migrations = {
+  0: (state: any) => {
+    const hasFridgeContents = state.fridgeContents;
+    const hasItems = hasFridgeContents && Array.isArray(state.fridgeContents.items);
+    const hasOldFormat = hasItems && state.fridgeContents.items.length > 0 && typeof state.fridgeContents.items[0] === "string";
+    
+    if (hasOldFormat) {
+      return {
+        ...state,
+        fridgeContents: { ...state.fridgeContents, items: [] },
+      };
+    }
+    
+    return state;
+  },
+};
+
 const persistConfig = {
   key: "root",
+  version: 0,
   storage,
   whitelist: ["fridgeContents", "userData"],
+  migrate: createMigrate(migrations, { debug: false }),
 };
 
 const rootReducer = combineReducers({

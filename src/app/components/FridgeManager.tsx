@@ -6,23 +6,28 @@ import {
   addItem,
   removeItem,
   clearAllItems,
+  FoodItem,
 } from "../../store/fridgeContentsSlice";
 
 export default function FridgeManager() {
   const dispatch = useAppDispatch();
   const fridgeItems = useAppSelector(state => state.fridgeContents.items);
 
-  const [newItem, setNewItem] = useState("");
+  const [newItemName, setNewItemName] = useState("");
+  const [expirationDate, setExpirationDate] = useState("");
 
   const handleAddItem = () => {
-    if (newItem.trim()) {
-      dispatch(addItem(newItem.trim()));
-      setNewItem("");
+    const isValidInput = newItemName.trim() && expirationDate;
+    
+    if (isValidInput) {
+      dispatch(addItem({ name: newItemName.trim(), expirationDate }));
+      setNewItemName("");
+      setExpirationDate("");
     }
   };
 
-  const handleRemoveItem = (item: string) => {
-    dispatch(removeItem(item));
+  const handleRemoveItem = (id: string) => {
+    dispatch(removeItem(id));
   };
 
   const handleClearAll = () => {
@@ -37,14 +42,19 @@ export default function FridgeManager() {
       <div className="bg-white rounded-lg shadow-md p-6">
         <h2 className="text-xl font-semibold mb-4">Fridge Contents</h2>
 
-        <div className="flex gap-2 mb-4">
+        <div className="flex flex-wrap gap-2 mb-4">
           <input
             type="text"
-            value={newItem}
-            onChange={e => setNewItem(e.target.value)}
-            onKeyPress={e => e.key === "Enter" && handleAddItem()}
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={newItemName}
+            onChange={e => setNewItemName(e.target.value)}
+            className="flex-1 min-w-48 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Add food item"
+          />
+          <input
+            type="date"
+            value={expirationDate}
+            onChange={e => setExpirationDate(e.target.value)}
+            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
             onClick={handleAddItem}
@@ -64,14 +74,19 @@ export default function FridgeManager() {
           <p className="text-gray-500 text-center py-8">No items in fridge</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {fridgeItems.map((item, index) => (
+            {fridgeItems.map((item: FoodItem) => (
               <div
-                key={index}
+                key={item.id}
                 className="flex items-center justify-between p-3 bg-gray-50 rounded-md"
               >
-                <span className="flex-1">{item}</span>
+                <div className="flex-1">
+                  <span className="font-medium">{item.name}</span>
+                  <p className="text-sm text-gray-500">
+                    Expires: {item.expirationDate}
+                  </p>
+                </div>
                 <button
-                  onClick={() => handleRemoveItem(item)}
+                  onClick={() => handleRemoveItem(item.id)}
                   className="ml-2 px-2 py-1 text-red-500 hover:text-red-700 focus:outline-none"
                 >
                   ×
