@@ -20,6 +20,17 @@ export default function Navbar() {
             </Link>
           </div>
 
+          {/* Navigation Links */}
+          <div className="flex items-center space-x-4">
+            <Link
+              href="/waste-report"
+              className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1"
+            >
+              <span>📊</span>
+              <span>Waste Report</span>
+            </Link>
+          </div>
+
           {/* User Profile Link */}
           <div className="flex items-center">
             <Link
