@@ -1,1 +1,149 @@
 @import "tailwindcss";
+
+/* Theme color system - Only variables actually used in the app */
+:root {
+    /* Light theme colors (default) */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+
+    /* Light mode override colors for maintainability */
+    --light-bg-gray-100: rgb(243 244 246);
+    --light-bg-white: rgb(255 255 255);
+    --light-bg-gray-50: rgb(249 250 251);
+    --light-bg-blue-500: rgb(59 130 246);
+    --light-bg-blue-50: rgb(219 234 254);
+
+    --light-text-gray-900: rgb(17 24 39);
+    --light-text-gray-800: rgb(55 65 81);
+    --light-text-gray-600: rgb(75 85 99);
+    --light-text-gray-500: rgb(107 114 128);
+    --light-text-blue-800: rgb(30 64 175);
+    --light-text-blue-700: rgb(29 78 216);
+    --light-text-red-500: rgb(239 68 68);
+    --light-text-red-700: rgb(185 28 28);
+
+    --light-border-gray-300: rgb(209 213 219);
+    --light-border-gray-200: rgb(229 231 235);
+    --light-border-blue-200: rgb(147 197 253);
+
+    --light-hover-bg-gray-200: rgb(229 231 235);
+    --light-ring-offset-white: rgb(255 255 255);
+}
+
+/* Dark theme colors */
+.dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+}
+
+/* Manual dark mode overrides - Force light mode styles when NOT .dark */
+/* Using CSS custom properties for easier maintenance */
+
+/* Background colors */
+html:not(.dark) .dark\:bg-gray-900 {
+    background-color: var(--light-bg-gray-100) !important;
+}
+
+html:not(.dark) .dark\:bg-gray-800 {
+    background-color: var(--light-bg-white) !important;
+}
+
+html:not(.dark) .dark\:bg-gray-700 {
+    background-color: var(--light-bg-gray-50) !important;
+}
+
+html:not(.dark) .dark\:bg-blue-600 {
+    background-color: var(--light-bg-blue-500) !important;
+}
+
+html:not(.dark) .dark\:bg-blue-900\/20 {
+    background-color: var(--light-bg-blue-50) !important;
+}
+
+/* Text colors */
+html:not(.dark) .dark\:text-gray-100 {
+    color: var(--light-text-gray-900) !important;
+}
+
+html:not(.dark) .dark\:text-gray-200 {
+    color: var(--light-text-gray-800) !important;
+}
+
+html:not(.dark) .dark\:text-gray-300 {
+    color: var(--light-text-gray-600) !important;
+}
+
+html:not(.dark) .dark\:text-gray-400 {
+    color: var(--light-text-gray-500) !important;
+}
+
+html:not(.dark) .dark\:text-blue-200 {
+    color: var(--light-text-blue-800) !important;
+}
+
+html:not(.dark) .dark\:text-blue-300 {
+    color: var(--light-text-blue-700) !important;
+}
+
+html:not(.dark) .dark\:text-red-400 {
+    color: var(--light-text-red-500) !important;
+}
+
+/* Border colors */
+html:not(.dark) .dark\:border-gray-600 {
+    border-color: var(--light-border-gray-300) !important;
+}
+
+html:not(.dark) .dark\:border-gray-700 {
+    border-color: var(--light-border-gray-200) !important;
+}
+
+html:not(.dark) .dark\:border-blue-800 {
+    border-color: var(--light-border-blue-200) !important;
+}
+
+/* Hover states */
+html:not(.dark) .dark\:hover\:bg-gray-700:hover {
+    background-color: var(--light-hover-bg-gray-200) !important;
+}
+
+html:not(.dark) .dark\:hover\:text-gray-100:hover {
+    color: var(--light-text-gray-900) !important;
+}
+
+html:not(.dark) .dark\:hover\:text-gray-300:hover {
+    color: var(--light-text-gray-600) !important;
+}
+
+html:not(.dark) .dark\:hover\:text-red-300:hover {
+    color: var(--light-text-red-700) !important;
+}
+
+/* Focus states */
+html:not(.dark) .dark\:focus\:ring-offset-gray-900:focus {
+    --tw-ring-offset-color: var(--light-ring-offset-white) !important;
+}
+
+/* Optimized transitions - Only apply to theme-related properties and specific elements */
+.theme-transition,
+[class*="dark:"],
+body,
+main,
+nav,
+button,
+input,
+textarea {
+    transition-property: color, background-color, border-color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+}
+
+/* Base body styling */
+body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+}

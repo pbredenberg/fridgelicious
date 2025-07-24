@@ -36,24 +36,28 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
       <div className="max-w-4xl mx-auto p-6 space-y-8">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">User Profile</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 transition-colors duration-200">
+            User Profile
+          </h1>
           <Link
             href="/"
-            className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors duration-200"
           >
             Back to Home
           </Link>
         </div>
 
         {/* User Data Section */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-6">Profile Settings</h2>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-colors duration-200">
+          <h2 className="text-xl font-semibold mb-6 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+            Profile Settings
+          </h2>
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors duration-200">
                 Username
               </label>
               <div className="flex gap-2">
@@ -61,12 +65,12 @@ export default function ProfilePage() {
                   type="text"
                   value={newUsername}
                   onChange={e => setNewUsername(e.target.value)}
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
                   placeholder="Enter username"
                 />
                 <button
                   onClick={handleUpdateUsername}
-                  className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
                 >
                   Update
                 </button>
@@ -74,7 +78,7 @@ export default function ProfilePage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors duration-200">
                 Daily Calorie Intake
               </label>
               <div className="flex gap-2">
@@ -82,12 +86,12 @@ export default function ProfilePage() {
                   type="number"
                   value={newCalorieIntake}
                   onChange={e => setNewCalorieIntake(e.target.value)}
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
                   placeholder="Enter daily calorie intake"
                 />
                 <button
                   onClick={handleUpdateCalorieIntake}
-                  className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
                 >
                   Update
                 </button>
@@ -95,23 +99,23 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          <div className="mt-6 p-4 bg-gray-50 rounded-md">
-            <h3 className="font-semibold text-gray-800 mb-2">
+          <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-md transition-colors duration-200">
+            <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2 transition-colors duration-200">
               Current Profile
             </h3>
-            <p>
+            <p className="text-gray-900 dark:text-gray-100 transition-colors duration-200">
               <strong>Username:</strong> {userData.username || "Not set"}
             </p>
-            <p>
+            <p className="text-gray-900 dark:text-gray-100 transition-colors duration-200">
               <strong>Daily Calorie Intake:</strong>{" "}
               {userData.dailyCalorieIntake} calories
             </p>
           </div>
 
-          <div className="mt-6 pt-6 border-t border-gray-200">
+          <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-600 transition-colors duration-200">
             <button
               onClick={handleResetData}
-              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors duration-200"
             >
               Reset Profile Data
             </button>
@@ -119,11 +123,11 @@ export default function ProfilePage() {
         </div>
 
         {/* Data Persistence Info */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h3 className="font-semibold text-blue-800 mb-2">
+        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 transition-colors duration-200">
+          <h3 className="font-semibold text-blue-800 dark:text-blue-200 mb-2 transition-colors duration-200">
             ℹ️ Data Persistence
           </h3>
-          <p className="text-blue-700 text-sm">
+          <p className="text-blue-700 dark:text-blue-300 text-sm transition-colors duration-200">
             All your profile data is automatically saved to localStorage and
             will be restored when you refresh the page.
           </p>
