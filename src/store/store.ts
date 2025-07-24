@@ -11,6 +11,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 import fridgeContentsReducer from "./fridgeContentsSlice";
 import userDataReducer from "./userDataSlice";
 import wasteTrackerReducer from "./wasteTrackerSlice";
+import themeReducer from "./themeSlice";
 
 const migrations = {
   0: (state: PersistedState): PersistedState => {
@@ -52,7 +53,7 @@ const persistConfig = {
   key: "root",
   version: 0,
   storage,
-  whitelist: ["fridgeContents", "userData", "wasteTracker"],
+  whitelist: ["fridgeContents", "userData", "wasteTracker", "theme"],
   migrate: createMigrate(migrations, { debug: false }),
 };
 
@@ -60,6 +61,7 @@ const rootReducer = combineReducers({
   fridgeContents: fridgeContentsReducer,
   userData: userDataReducer,
   wasteTracker: wasteTrackerReducer,
+  theme: themeReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

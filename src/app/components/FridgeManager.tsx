@@ -41,10 +41,6 @@ export default function FridgeManager() {
     dispatch(removeItem(id));
   };
 
-  const handleClearAll = () => {
-    dispatch(clearAllItems());
-  };
-
   const handleChuckItem = (item: FoodItem) => {
     dispatch(chuckItem(item));
     dispatch(removeItem(item.id));
@@ -54,47 +50,74 @@ export default function FridgeManager() {
     });
   };
 
+  const handleClearAll = () => {
+    dispatch(clearAllItems());
+  };
+
+  const formatExpirationDate = (expirationDate: string | null) => {
+    if (!expirationDate) return "No expiration date";
+    const date = new Date(expirationDate);
+    return date.toLocaleDateString();
+  };
+
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-8">
+    <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg transition-colors duration-200">
       <Toaster position="top-right" />
-      <h1 className="text-3xl font-bold text-center mb-8">Fridge Manager</h1>
 
-      {/* Fridge Contents Section */}
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-xl font-semibold mb-4">Fridge Contents</h2>
+      <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+        Fridge Manager
+      </h2>
 
-        <div className="flex flex-wrap gap-2 mb-4">
+      {/* Add Item Form */}
+      <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg transition-colors duration-200">
+        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+          Add New Item
+        </h3>
+        <div className="flex flex-col sm:flex-row gap-4">
           <input
             type="text"
+            placeholder="Item name"
             value={newItemName}
             onChange={e => setNewItemName(e.target.value)}
-            className="flex-1 min-w-48 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Add food item"
+            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
           />
           <input
             type="date"
             value={expirationDate}
             onChange={e => setExpirationDate(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200"
           />
           <button
             onClick={handleAddItem}
-            className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="px-4 py-2 bg-blue-500 dark:bg-blue-600 text-white rounded-md hover:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
           >
-            Add
+            Add Item
           </button>
-          <button
-            onClick={handleClearAll}
-            className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
-          >
-            Clear All
-          </button>
+        </div>
+      </div>
+
+      {/* Fridge Contents */}
+      <div className="mb-6">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 transition-colors duration-200">
+            Current Items ({fridgeItems.length})
+          </h3>
+          {fridgeItems.length > 0 && (
+            <button
+              onClick={handleClearAll}
+              className="px-4 py-2 bg-red-500 dark:bg-red-600 text-white rounded-md hover:bg-red-600 dark:hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors duration-200"
+            >
+              Clear All
+            </button>
+          )}
         </div>
 
         {fridgeItems.length === 0 ? (
-          <p className="text-gray-500 text-center py-8">No items in fridge</p>
+          <p className="text-gray-500 dark:text-gray-400 text-center py-8 transition-colors duration-200">
+            Your fridge is empty. Add some items to get started!
+          </p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="space-y-2">
             {fridgeItems.map((item: FoodItem) => {
               const expirationStatus = getExpirationStatus(item.expirationDate);
               const isExpired = expirationStatus.isExpired;
@@ -103,72 +126,53 @@ export default function FridgeManager() {
               return (
                 <div
                   key={item.id}
-                  className={`flex items-center justify-between p-3 rounded-md ${
+                  className={`p-4 rounded-lg border transition-colors duration-200 ${
                     isExpired
-                      ? "bg-red-50 border-2 border-red-200"
+                      ? "bg-red-100 dark:bg-red-900/20 border border-red-300 dark:border-red-800"
                       : isExpiringSoon
-                        ? "bg-yellow-50 border-2 border-yellow-200"
-                        : "bg-gray-50"
+                        ? "bg-yellow-100 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-800"
+                        : "bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600"
                   }`}
                 >
-                  <div className="flex-1">
-                    <span
-                      className={`font-medium ${
-                        isExpired
-                          ? "text-red-700"
-                          : isExpiringSoon
-                            ? "text-yellow-700"
-                            : ""
-                      }`}
-                    >
-                      {item.name}
-                    </span>
-                    <p
-                      className={`text-sm ${
-                        isExpired
-                          ? "text-red-600"
-                          : isExpiringSoon
-                            ? "text-yellow-600"
-                            : "text-gray-500"
-                      }`}
-                    >
-                      Expires: {item.expirationDate}
-                      {isExpired && " (EXPIRED)"}
-                      {isExpiringSoon && !isExpired && " (Expiring Soon)"}
-                    </p>
-                  </div>
-                  <div className="flex gap-1 ml-2">
-                    {isExpired && (
+                  <div className="flex justify-between items-center">
+                    <div className="flex-1">
+                      <span className="text-gray-900 dark:text-gray-100 transition-colors duration-200">
+                        {item.name}
+                      </span>
+                      <div className="text-sm text-gray-600 dark:text-gray-400 transition-colors duration-200">
+                        {formatExpirationDate(item.expirationDate)}
+                        {isExpired && (
+                          <span className="ml-2 text-red-600 dark:text-red-400 font-medium">
+                            (Expired)
+                          </span>
+                        )}
+                        {isExpiringSoon && !isExpired && (
+                          <span className="ml-2 text-yellow-600 dark:text-yellow-400 font-medium">
+                            (Expires Soon)
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
                       <button
                         onClick={() => handleChuckItem(item)}
-                        className="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+                        className="px-3 py-1 bg-orange-500 dark:bg-orange-600 text-white text-sm rounded hover:bg-orange-600 dark:hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-colors duration-200"
                       >
-                        Chuck It
+                        Chuck
                       </button>
-                    )}
-                    <button
-                      onClick={() => handleRemoveItem(item.id)}
-                      className="px-2 py-1 text-red-500 hover:text-red-700 focus:outline-none"
-                    >
-                      ×
-                    </button>
+                      <button
+                        onClick={() => handleRemoveItem(item.id)}
+                        className="px-3 py-1 bg-red-500 dark:bg-red-600 text-white text-sm rounded hover:bg-red-600 dark:hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors duration-200"
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
                 </div>
               );
             })}
           </div>
         )}
-      </div>
-
-      {/* Persistence Info */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <h3 className="font-semibold text-blue-800 mb-2">
-          ℹ️ Data Persistence
-        </h3>
-        <p className="text-blue-700 text-sm">
-          All your fridge data is automatically saved to localStorage and will
-          be restored when you refresh the page.
-        </p>
       </div>
     </div>
   );
