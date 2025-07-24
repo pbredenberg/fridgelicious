@@ -5,16 +5,18 @@ import { combineReducers } from "@reduxjs/toolkit";
 
 import fridgeContentsReducer from "./fridgeContentsSlice";
 import userDataReducer from "./userDataSlice";
+import recipeSuggestionsReducer from "./recipeSuggestionsSlice";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["fridgeContents", "userData"],
+  whitelist: ["fridgeContents", "userData", "recipeSuggestions"],
 };
 
 const rootReducer = combineReducers({
   fridgeContents: fridgeContentsReducer,
   userData: userDataReducer,
+  recipeSuggestions: recipeSuggestionsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
